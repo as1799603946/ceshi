@@ -1,0 +1,43 @@
+@extends('admin.layout.index')
+@section('title','分类列表')
+@section('content')
+<div class="mws-panel grid_8">
+                	<div class="mws-panel-header">
+                    	<span><i class="icon-table"></i>分类列表</span>
+                    </div>
+                    <div class="mws-panel-body no-padding">
+                        <table class="mws-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>分类名称</th>
+                                    <th>父级ID</th>
+                                    <th>分类路径</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	@foreach($cate as $k=>$v)
+                                <tr>
+                                    <td>{{ $v->id }}</td>
+                                    <td>{{ $v->cname }}</td>
+                                    <td>{{ $v->pid }}</td>
+                                    <td>{{ $v->path }}</td>
+                                    <td>
+                                    	@if(substr_count($v->path,',') < 2)
+                                    	<a href="/cates/create?id={{ $v->id }}" class="btn btn-info">添加子分类</a>
+                                    	@endif
+                                            <form action="/cates/{{ $v->id }}" method="post" style="display:inline-block;">
+                                                {{ csrf_field() }}
+                                                {{ method_field('DELETE') }}
+                                                <input type="submit" value="删除" class="btn btn-danger">
+                                            </form>
+                                            <a href="/cates/{{ $v->id }}/edit" class="btn btn-warning">修改</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+@endsection

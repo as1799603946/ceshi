@@ -1,0 +1,1 @@
+<a href="http://www.219.com/send2?id={{ $id }}">标签</a>
